@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:componentes/src/providers/menu_provider.dart';
 import 'package:componentes/src/utils/icono_string_util.dart';
 
-import 'alert_page.dart';
-
-
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,7 @@ class HomePage extends StatelessWidget {
             // Navigator.push(context, route);
 
         }
-        )
+        );
 
         opciones..add( widgetTemp )
                 ..add( Divider() );
