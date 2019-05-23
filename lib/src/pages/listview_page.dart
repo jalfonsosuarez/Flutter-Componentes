@@ -40,7 +40,7 @@ class _ListPageState extends State<ListPage> {
        body: Stack(
          children: <Widget>[
            _crearLista(), 
-           _crearLoading();
+           _crearLoading(),
          ],
        )
        
