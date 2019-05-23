@@ -1,5 +1,5 @@
 
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 // El snippet mateapp crea la estructura necesaria para empezar
 import 'package:flutter/material.dart';
 import 'package:componentes/src/routes/routes.dart';
@@ -14,6 +14,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'), // English
+        const Locale('es', 'ES'), // Chinese
+      ],
       title: 'Componentes App',
       //home: HomePage(),
       initialRoute: '/',
