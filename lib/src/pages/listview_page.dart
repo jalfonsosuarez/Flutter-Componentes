@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class ListPage extends StatefulWidget {
   ListPage({Key key}) : super(key: key);
@@ -13,6 +16,8 @@ class _ListPageState extends State<ListPage> {
   List<int> _listaNumeros = new List();
   int _ultimoItem = 0;
 
+  bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +25,8 @@ class _ListPageState extends State<ListPage> {
 
     _scrollController.addListener(() {
       if( _scrollController.position.pixels == _scrollController.position.maxScrollExtent ){
-        _agregar10();
+        //_agregar10();
+        fetchData();
       }
     });
   }
@@ -31,8 +37,20 @@ class _ListPageState extends State<ListPage> {
        appBar: AppBar(
          title: Text( 'ListView' ),
        ),
-       body: _crearLista(),
+       body: Stack(
+         children: <Widget>[
+           _crearLista(), 
+           _crearLoading();
+         ],
+       )
+       
     );
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    _scrollController.dispose();
   }
 
   Widget _crearLista() {
@@ -63,6 +81,56 @@ class _ListPageState extends State<ListPage> {
         
       });
     }
+  }
+
+  Future<Null> fetchData() async {
+
+    _isLoading = true;
+    setState(() { });
+
+    final duration = new Duration( seconds: 2 );
+
+    return new Timer( duration, respuestaHTTP );
+
+
+  }
+
+  void respuestaHTTP() {
+
+    _isLoading = false;
+
+    _scrollController.animateTo(
+      _scrollController.position.pixels + 100,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: 250)
+    );
+    _agregar10();
+
+  }
+
+  Widget _crearLoading() {
+
+    if( _isLoading ) {
+      return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:<Widget>[
+              CircularProgressIndicator()
+            ],
+            ),
+            SizedBox( height: 25.0),
+        ],
+      );
+      
+      
+      CircularProgressIndicator();
+    } else {
+      return Container();
+    }
+
   }
 
 }
